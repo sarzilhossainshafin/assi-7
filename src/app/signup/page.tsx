@@ -38,13 +38,15 @@ export default function SignUpPage() {
       });
 
       if (error) {
+        console.error("Signup failed:", error);
         toast.error(error.message || "Registration করা যায়নি।");
         return;
       }
 
       toast.success("Registration সফল হয়েছে!");
       router.push("/signin");
-    } catch {
+    } catch (error) {
+      console.error("Signup request error:", error);
       toast.error("সমস্যা হয়েছে। আবার চেষ্টা করো।");
     } finally {
       setLoading(false);
@@ -70,9 +72,13 @@ export default function SignUpPage() {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="name" className="mb-2 block text-sm font-semibold text-gray-700">
+            <label
+              htmlFor="name"
+              className="mb-2 block text-sm font-semibold text-gray-700"
+            >
               Name
             </label>
+
             <input
               id="name"
               type="text"
@@ -87,9 +93,13 @@ export default function SignUpPage() {
           </div>
 
           <div>
-            <label htmlFor="email" className="mb-2 block text-sm font-semibold text-gray-700">
+            <label
+              htmlFor="email"
+              className="mb-2 block text-sm font-semibold text-gray-700"
+            >
               Email
             </label>
+
             <input
               id="email"
               type="email"
@@ -104,9 +114,13 @@ export default function SignUpPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="mb-2 block text-sm font-semibold text-gray-700">
+            <label
+              htmlFor="password"
+              className="mb-2 block text-sm font-semibold text-gray-700"
+            >
               Password
             </label>
+
             <input
               id="password"
               type="password"

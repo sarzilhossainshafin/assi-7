@@ -1,21 +1,18 @@
-
 import { MongoClient } from "mongodb";
 
 const uri = process.env.DATABASE_URL;
 
 if (!uri) {
-  throw new Error("Please add DATABASE_URL to .env.local");
+  throw new Error("DATABASE_URL environment variable পাওয়া যায়নি");
 }
 
-const options = {};
-
-const globalForMongo = globalThis as typeof globalThis & {
+type MongoGlobal = typeof globalThis & {
   _mongoClient?: MongoClient;
 };
 
-export const client =
-  globalForMongo._mongoClient ?? new MongoClient(uri, options);
+const globalForMongo = globalThis as MongoGlobal;
 
-if (process.env.NODE_ENV !== "production") {
-  globalForMongo._mongoClient = client;
-}
+export const client =
+  globalForMongo._mongoClient ?? new MongoClient(uri);
+
+globalForMongo._mongoClient = client;
