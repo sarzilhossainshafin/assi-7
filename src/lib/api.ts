@@ -3,7 +3,7 @@ import type { Product, Category } from "@/types/product.type";
 
 const API_URL = "https://openapi.programming-hero.com/api/bazardor";
 
-// API response থেকে array বের করার helper
+
 function getArray(data: unknown): unknown[] {
   if (Array.isArray(data)) {
     return data;
@@ -39,10 +39,9 @@ function getArray(data: unknown): unknown[] {
 
   return [];
 }
-
 async function fetchAPI(endpoint: string): Promise<unknown> {
   const response = await fetch(`${API_URL}${endpoint}`, {
-    cache: "no-store",
+    next: { revalidate: 30 }, 
   });
 
   if (!response.ok) {
