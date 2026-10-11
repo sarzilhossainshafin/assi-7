@@ -1,9 +1,5 @@
 
-import dns from "node:dns";
 import { MongoClient } from "mongodb";
-
-// Use Google DNS only
-dns.setServers(["8.8.8.8"]);
 
 const uri = process.env.DATABASE_URL;
 
@@ -11,15 +7,15 @@ if (!uri) {
   throw new Error("Please add DATABASE_URL to .env.local");
 }
 
+const options = {};
+
 const globalForMongo = globalThis as typeof globalThis & {
-  mongoClient?: MongoClient;
+  _mongoClient?: MongoClient;
 };
 
 export const client =
-  globalForMongo.mongoClient ?? new MongoClient(uri);
+  globalForMongo._mongoClient ?? new MongoClient(uri, options);
 
 if (process.env.NODE_ENV !== "production") {
-  globalForMongo.mongoClient = client;
+  globalForMongo._mongoClient = client;
 }
-
-export const db = client.db();
