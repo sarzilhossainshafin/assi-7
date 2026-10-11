@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import Image from "next/image";
 import { getProducts } from "@/lib/api";
 import type { Product } from "@/types/product.type";
 
@@ -133,8 +134,10 @@ export default async function Home() {
   return (
     <main className="min-h-screen flex-1 bg-[#f1f6f1] text-[#203b29]">
       <div className="mx-auto max-w-6xl px-4 pb-10 pt-5 sm:px-6 lg:px-8">
+
         {/* Hero Section */}
         <section className="grid min-h-[220px] items-center gap-4 overflow-hidden rounded-2xl border border-[#e3ebe3] bg-[#fbfdfb] px-5 py-6 sm:grid-cols-[1.4fr_0.6fr] sm:px-9 sm:py-8">
+          {/* Hero Text */}
           <div>
             <span className="inline-flex rounded-full bg-[#e5f4e5] px-3 py-1 text-xs font-bold text-[#39834b]">
               📈 প্রতিদিনের বাজার আপডেট
@@ -158,15 +161,16 @@ export default async function Home() {
             </a>
           </div>
 
-          {/* Hero Illustration */}
-          <div className="flex min-h-36 items-center justify-center">
-            <div
-              className="flex h-36 w-36 items-center justify-center rounded-full bg-[#e5f4e5] text-7xl sm:h-44 sm:w-44 sm:text-8xl"
-              role="img"
-              aria-label="বাজারের পণ্যের প্রতীক"
-            >
-              🛒
-            </div>
+          {/* Original Hero Image */}
+          <div className="relative flex items-center justify-center">
+            <Image
+              src="/images/bazar-hero.png"
+              alt="বাজার দর - নিত্যপ্রয়োজনীয় পণ্যের বাজার"
+              width={500}
+              height={350}
+              priority
+              className="h-auto w-full max-w-md object-contain"
+            />
           </div>
         </section>
 
